@@ -41,57 +41,26 @@
         }
 
         /* Movie Grid */
-        #movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 6rem;
-        }
-
-        .movie-card { 
-            background: linear-gradient(145deg, #111 0%, #000 100%);
-            border: 2px solid #222; transition: all 0.4s ease;
-            position: relative; overflow: hidden;
-            display: flex; flex-direction: column;
-            border-radius: 12px;
-        }
+        #movie-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 6rem; }
+        .movie-card { background: linear-gradient(145deg, #111 0%, #000 100%); border: 2px solid #222; transition: 0.4s; position: relative; overflow: hidden; border-radius: 12px; }
         .movie-card:hover { border-color: var(--gold); transform: translateY(-10px); }
-        .movie-card img { width: 100%; min-height: 400px; object-fit: contain; background-color: #000; opacity: 0.9; transition: 0.3s; }
+        .movie-card img { width: 100%; min-height: 400px; object-fit: contain; background-color: #000; opacity: 0.9; }
 
-        .seat-badge {
-            position: absolute; bottom: 10px; right: 10px;
-            padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold;
-            background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(4px); z-index: 10;
-        }
+        .seat-badge { position: absolute; bottom: 10px; right: 10px; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); z-index: 10; }
 
-        /* Round Selection UI (ล็อคตามภาพที่คุณชอบ) */
+        /* ✅ ล็อคดีไซน์หน้าเลือกรอบ (ขอบเขียวมน) */
         .round-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px; transition: 0.3s; cursor: pointer; position: relative; overflow: hidden;
             border-left: 4px solid var(--status-color, var(--velvet));
         }
         .round-card:hover { background: rgba(212, 175, 55, 0.08); border-color: var(--gold); transform: translateX(8px); }
 
-        .input-oscar {
-            background: rgba(255, 255, 255, 0.03) !important;
-            border: 1px solid rgba(212, 175, 55, 0.2) !important;
-            border-radius: 12px !important; padding: 16px !important; color: white;
-        }
-
-        .btn-confirm-gold {
-            background: linear-gradient(135deg, #f9d976 0%, #d4af37 50%, #a67c00 100%);
-            color: #1a0000; font-weight: 800; border-radius: 14px; padding: 18px;
-            text-transform: uppercase; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: all 0.2s ease;
-        }
+        .input-oscar { background: rgba(255, 255, 255, 0.03) !important; border: 1px solid rgba(212, 175, 55, 0.2) !important; border-radius: 12px !important; padding: 16px !important; color: white; }
+        .btn-confirm-gold { background: linear-gradient(135deg, #f9d976 0%, #d4af37 50%, #a67c00 100%); color: #1a0000; font-weight: 800; border-radius: 14px; padding: 18px; text-transform: uppercase; }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-150px * 16)); } }
-        .slider { background: rgba(212, 175, 55, 0.03); border-top: 1px solid rgba(212, 175, 55, 0.1); border-bottom: 1px solid rgba(212, 175, 55, 0.1); height: 100px; margin: 40px auto; overflow: hidden; position: relative; width: 100%; display: flex; align-items: center; }
+        .slider { background: rgba(212, 175, 55, 0.03); border-top: 1px solid rgba(212, 175, 55, 0.1); border-bottom: 1px solid rgba(212, 175, 55, 0.1); height: 100px; margin: 40px auto; overflow: hidden; position: relative; display: flex; align-items: center; }
         .slide-track { animation: scroll 40s linear infinite; display: flex; width: calc(150px * 32); }
         .slide { height: 100px; width: 150px; display: flex; align-items: center; justify-content: center; padding: 0 15px; }
         .slide img { max-height: 60px; max-width: 120px; object-fit: contain; }
@@ -135,7 +104,7 @@
     </main>
 
     <footer class="py-12 border-t border-white/10 text-center text-gray-500 uppercase text-[10px] tracking-widest">
-        © 2026 WANG NANG 10 - Velvet Oscar 
+        © 2026 WANG NANG 10 - Velvet Oscar Edition
     </footer>
 
     <div id="contact-modal" class="fixed inset-0 z-[1000] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
@@ -146,7 +115,7 @@
                 </div>
             </div>
             <h2 class="text-2xl font-th-title text-[--gold] mb-2 uppercase">Contact Staff</h2>
-            <p class="text-gray-400 text-sm mb-8">พบปัญหาติดต่อเราผ่าน Instagram </p>
+            <p class="text-gray-400 text-sm mb-8">พบปัญหาติดต่อเราผ่าน Instagram ได้เลยครับ</p>
             <a href="https://www.instagram.com/wangnang_/" target="_blank" class="block w-full p-4 bg-gradient-to-r from-[--gold] to-[--gold-light] text-black rounded-2xl font-bold hover:scale-105 transition">Follow @wangnang_</a>
             <button onclick="closeModal('contact-modal')" class="mt-6 text-gray-500 text-[10px] uppercase font-bold tracking-widest">Close</button>
         </div>
@@ -180,29 +149,25 @@
     <div id="ticket-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4 bg-black/98 backdrop-blur-2xl">
         <div class="max-w-4xl w-full text-center relative">
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[--gold] rounded-full blur-[180px] opacity-5 pointer-events-none"></div>
-
             <div class="relative z-10">
                 <div class="mb-12">
                     <h2 class="text-[--gold] font-th-title text-4xl md:text-6xl font-bold tracking-widest" style="text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);">บัตรเข้าชมภาพยนตร์</h2>
-                    <p class="text-gray-400 font-light italic mt-2 text-lg">Wang Nang 10 - Velvet Oscar </p>
+                    <div class="flex items-center justify-center gap-3 mt-4 opacity-50">
+                        <div class="h-[1px] w-8 bg-[--gold]"></div>
+                        <p class="text-gray-300 font-light tracking-[0.3em] uppercase text-xs md:text-sm">Velvet Oscar Edition</p>
+                        <div class="h-[1px] w-8 bg-[--gold]"></div>
+                    </div>
                 </div>
-                
                 <div class="relative inline-block mb-12">
                     <canvas id="ticket-canvas" class="relative w-full rounded-2xl shadow-2xl border border-white/5"></canvas>
                 </div>
-                
                 <div class="max-w-md mx-auto mb-14 text-center">
                     <p class="text-[--gold] font-bold text-lg mb-2">กรุณาบันทึกภาพหน้าจอ</p>
                     <p class="text-gray-500 text-sm">เพื่อแสดงแก่เจ้าหน้าที่ ณ จุดลงทะเบียนเข้างาน</p>
                 </div>
-
                 <div class="flex flex-col md:flex-row gap-6 max-w-sm mx-auto">
-                    <button onclick="downloadTicket()" class="flex-[2] bg-gradient-to-br from-[#f9d976] via-[#d4af37] to-[#a67c00] text-black py-5 text-sm uppercase font-black rounded-full shadow-lg hover:scale-105 transition duration-300">
-                        💾 บันทึกตั๋วหนัง
-                    </button>
-                    <button onclick="location.reload()" class="flex-1 bg-white/5 text-white py-5 text-xs uppercase border border-white/10 font-bold rounded-full hover:bg-white/10 transition">
-                        Home
-                    </button>
+                    <button onclick="downloadTicket()" class="flex-[2] bg-gradient-to-br from-[#f9d976] via-[#d4af37] to-[#a67c00] text-black py-5 text-sm uppercase font-black rounded-full shadow-lg hover:scale-105 transition duration-300">💾 บันทึกตั๋วหนัง</button>
+                    <button onclick="location.reload()" class="flex-1 bg-white/5 text-white py-5 text-xs uppercase border border-white/10 font-bold rounded-full hover:bg-white/10 transition">Home</button>
                 </div>
             </div>
         </div>
@@ -249,7 +214,10 @@
         function init() {
             const track = document.getElementById('slider-track');
             let sliderHTML = '';
-            for(let i=1; i<=16; i++) sliderHTML += `<div class="slide"><img src="prod${i}.png" onerror="this.src='https://via.placeholder.com/120x60/000/fff?text=P${i}'"></div>`;
+            const version = new Date().getTime(); // ✅ ป้องกัน Cache
+            for(let i=1; i<=16; i++) {
+                sliderHTML += `<div class="slide"><img src="prod${i}.png?v=${version}" onerror="this.src='prod${i}.PNG?v=${version}'"></div>`;
+            }
             track.innerHTML = sliderHTML + sliderHTML;
 
             const grid = document.getElementById('movie-grid');
@@ -258,7 +226,7 @@
                 const movieID = `movie-${m.id}`;
                 grid.innerHTML += `
                     <div class="movie-card rounded overflow-hidden">
-                        <img src="${m.post}" onerror="this.src='https://via.placeholder.com/400x560/222/D4AF37?text=WN10'">
+                        <img src="${m.post}?v=${version}" onerror="this.src='https://via.placeholder.com/400x560/222/D4AF37?text=WN10'">
                         <div id="badge-${movieID}" class="seat-badge">Loading...</div>
                         <div class="p-6 bg-gradient-to-t from-black to-transparent flex-grow">
                             <h3 class="text-xl font-th-title font-bold text-white mb-1 truncate">${m.title}</h3>
@@ -292,7 +260,7 @@
                     list.innerHTML += `
                         <div onclick="${isFull ? '' : `selectRound(${r.id})`}" class="round-card p-6 flex justify-between items-center ${isFull ? 'opacity-40 cursor-not-allowed' : ''}" style="--status-color: ${color}">
                             <div class="flex-1">
-                                <p class="text-white font-th-title text-xl mb-1">${r.name} <span class="text-[--gold] text-sm ml-2 font-normal italic">${r.time}</span></p>
+                                <p class="text-white font-th-title text-xl mb-1">${r.name} <span class="text-[--gold] text-sm ml-2 font-normal italic tracking-wider">${r.time}</span></p>
                                 <p class="text-[11px] text-gray-400 italic font-light truncate max-w-sm"><span class="text-[--gold] font-bold">Movies:</span> ${moviesInRound.join(", ")}</p>
                             </div>
                             <div class="text-center pl-6 border-l border-white/10">
@@ -362,7 +330,7 @@
             link.download = 'WN10-Ticket.png'; 
             link.href = canvas.toDataURL(); 
             link.click();
-            alert("บันทึกตั๋วหนังเรียบร้อย! ตรวจสอบในเครื่องได้เลยครับ");
+            alert("บันทึกตั๋วหนังเรียบร้อย! อย่าลืมโชว์หน้างานนะครับ");
         }
         
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
