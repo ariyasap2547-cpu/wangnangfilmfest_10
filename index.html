@@ -48,7 +48,6 @@
 
         .seat-badge { position: absolute; bottom: 10px; right: 10px; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); z-index: 10; }
 
-        /* ✅ ล็อคดีไซน์หน้าเลือกรอบ (ขอบเขียวมน) */
         .round-card {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px; transition: 0.3s; cursor: pointer; position: relative; overflow: hidden;
@@ -56,7 +55,17 @@
         }
         .round-card:hover { background: rgba(212, 175, 55, 0.08); border-color: var(--gold); transform: translateX(8px); }
 
-        .input-oscar { background: rgba(255, 255, 255, 0.03) !important; border: 1px solid rgba(212, 175, 55, 0.2) !important; border-radius: 12px !important; padding: 16px !important; color: white; }
+        /* Oscar Input Style */
+        .input-oscar { 
+            background: rgba(255, 255, 255, 0.03) !important; 
+            border: 1px solid rgba(212, 175, 55, 0.2) !important; 
+            border-radius: 16px !important; 
+            padding: 18px !important; 
+            color: white;
+            transition: 0.3s;
+        }
+        .input-oscar:focus { border-color: var(--gold) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); outline: none; }
+
         .btn-confirm-gold { background: linear-gradient(135deg, #f9d976 0%, #d4af37 50%, #a67c00 100%); color: #1a0000; font-weight: 800; border-radius: 14px; padding: 18px; text-transform: uppercase; }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-150px * 16)); } }
@@ -87,8 +96,8 @@
             <img src="logo-wn10.png" class="h-9 md:h-12 object-contain -ml-10" alt="WN10">
         </div>
         <div class="flex items-center gap-3">
-            <button onclick="checkTicketPrompt()" class="text-white text-[10px] md:text-xs border border-white/50 px-3 py-2 rounded uppercase font-bold">Check Ticket</button>
-            <button onclick="openRoundSelection()" class="bg-gradient-to-b from-[--gold-light] to-[--gold] text-black text-xs md:text-sm px-4 md:px-6 py-2.5 rounded-full uppercase font-bold shadow-lg">จองตั๋วภาพยนตร์</button>
+            <button onclick="openModal('check-ticket-modal')" class="text-white text-[10px] md:text-xs border border-white/50 px-3 py-2 rounded uppercase font-bold hover:bg-white/10 transition">Check Ticket</button>
+            <button onclick="openRoundSelection()" class="bg-gradient-to-b from-[--gold-light] to-[--gold] text-black text-xs md:text-sm px-4 md:px-6 py-2.5 rounded-full uppercase font-bold shadow-lg transition active:scale-95">จองตั๋วภาพยนตร์</button>
         </div>
     </header>
 
@@ -103,10 +112,6 @@
         <div id="movie-grid"></div>
     </main>
 
-    <footer class="py-12 border-t border-white/10 text-center text-gray-500 uppercase text-[10px] tracking-widest">
-        © 2026 WANG NANG 10 - Velvet Oscar Edition
-    </footer>
-
     <div id="contact-modal" class="fixed inset-0 z-[1000] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
         <div class="bg-[#121212] w-full max-w-sm p-8 rounded-[30px] border-2 border-[--gold] text-center shadow-[0_0_50px_rgba(212,175,55,0.2)]">
             <div class="mb-6 flex justify-center">
@@ -118,6 +123,29 @@
             <p class="text-gray-400 text-sm mb-8">พบปัญหาติดต่อเราผ่าน Instagram ได้เลยครับ</p>
             <a href="https://www.instagram.com/wangnang_/" target="_blank" class="block w-full p-4 bg-gradient-to-r from-[--gold] to-[--gold-light] text-black rounded-2xl font-bold hover:scale-105 transition">Follow @wangnang_</a>
             <button onclick="closeModal('contact-modal')" class="mt-6 text-gray-500 text-[10px] uppercase font-bold tracking-widest">Close</button>
+        </div>
+    </div>
+
+    <div id="check-ticket-modal" class="fixed inset-0 z-[500] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
+        <div class="bg-[#0a0a0a] w-full max-w-md p-10 rounded-[40px] border-2 border-[--gold] text-center shadow-[0_0_80px_rgba(212,175,55,0.15)] relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-[--gold]/5 rounded-full blur-3xl"></div>
+            
+            <div class="relative z-10">
+                <h2 class="text-3xl font-th-title text-[--gold] mb-2">ตรวจสอบตั๋วหนัง</h2>
+                <p class="text-gray-500 text-sm mb-10 tracking-widest uppercase">Movie Ticket Retrieval</p>
+                
+                <div class="space-y-6">
+                    <input type="tel" id="check_phone" required pattern="[0-9]{10}" 
+                           class="input-oscar w-full text-center text-2xl tracking-[0.3em]" 
+                           placeholder="0XXXXXXXXX">
+                    <p class="text-gray-600 text-xs italic">กรอกเบอร์โทรศัพท์ 10 หลักที่คุณใช้จอง</p>
+                    
+                    <button onclick="checkTicketNew()" id="check-btn" class="btn-confirm-gold w-full text-lg shadow-[0_10px_20px_rgba(0,0,0,0.3)] transition hover:scale-105">
+                        แสดงตั๋วของฉัน
+                    </button>
+                    <button onclick="closeModal('check-ticket-modal')" class="text-gray-500 text-xs uppercase tracking-widest hover:text-white transition">ยกเลิก</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -152,11 +180,7 @@
             <div class="relative z-10">
                 <div class="mb-12">
                     <h2 class="text-[--gold] font-th-title text-4xl md:text-6xl font-bold tracking-widest" style="text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);">บัตรเข้าชมภาพยนตร์</h2>
-                    <div class="flex items-center justify-center gap-3 mt-4 opacity-50">
-                        <div class="h-[1px] w-8 bg-[--gold]"></div>
-                        <p class="text-gray-300 font-light tracking-[0.3em] uppercase text-xs md:text-sm">Velvet Oscar Edition</p>
-                        <div class="h-[1px] w-8 bg-[--gold]"></div>
-                    </div>
+                    <p class="text-gray-400 font-light italic mt-2 text-lg">Wang Nang 10 - Velvet Oscar Edition</p>
                 </div>
                 <div class="relative inline-block mb-12">
                     <canvas id="ticket-canvas" class="relative w-full rounded-2xl shadow-2xl border border-white/5"></canvas>
@@ -196,17 +220,17 @@
             { id: 3, title: "Lusso & Piero", prod: "Cloudframe Studio", len: "15:05", post: "poster3.jpg", round: "1" },
             { id: 4, title: "ขนิษฐา", prod: "Serendip production", len: "20:48", post: "poster4.jpg", round: "2" },
             { id: 5, title: "เชิด", prod: "MUD", len: "29:47", post: "poster5.jpg", round: "2" },
-            { id: 6, title: "เยาว์ fifteen,still youth", prod: "Deethangtakun", len: "30:00", post: "poster6.jpg", round: "2" },
-            { id: 7, title: "Momories (วิมารดา)", prod: "105 Production", len: "30:00", post: "poster7.jpg", round: "3" },
-            { id: 8, title: "The Coraeth เดอะ โคแรธ", prod: "Genzai Picture", len: "30:00", post: "poster8.jpg", round: "3" },
+            { id: 6, title: "เยาว์ fifteen,youth", prod: "Deethangtakun", len: "30:00", post: "poster6.jpg", round: "2" },
+            { id: 7, title: "Momories", prod: "105 Production", len: "30:00", post: "poster7.jpg", round: "3" },
+            { id: 8, title: "เดอะ โคแรธ", prod: "Genzai Picture", len: "30:00", post: "poster8.jpg", round: "3" },
             { id: 9, title: "Blue's Redemption", prod: "WeCrazy Company", len: "30:00", post: "poster9.jpg", round: "3" },
             { id: 10, title: "ลาละ บาย..", prod: "PHNS", len: "30:00", post: "poster10.jpg", round: "4" },
-            { id: 11, title: "JOE THE BROKE AND THE BLACK GLASSES", prod: "แสงมาลี film", len: "30:01", post: "poster11.jpg", round: "4" },
+            { id: 11, title: "JOE THE BROKE", prod: "แสงมาลี film", len: "30:01", post: "poster11.jpg", round: "4" },
             { id: 12, title: "Echoes Of Pain", prod: "Echo Film Production", len: "30:01", post: "poster12.jpg", round: "4" },
-            { id: 13, title: "The Last Secret รักนี้มีราก", prod: "Lanfilm", len: "32:27", post: "poster13.jpg", round: "5" },
+            { id: 13, title: "รักนี้มีราก", prod: "Lanfilm", len: "32:27", post: "poster13.jpg", round: "5" },
             { id: 14, title: "UNEARTH", prod: "MMRS PRODUCTION", len: "44:27", post: "poster14.jpg", round: "5" },
             { id: 15, title: "บ้านใหญ่", prod: "ODYSSEY", len: "44:54", post: "poster15.jpg", round: "5" },
-            { id: 16, title: "UNDER THE SAME ROOF", prod: "FINE FILM PRODUCTION", len: "45:00", post: "poster16.jpg", round: "5" }
+            { id: 16, title: "SAME ROOF", prod: "FINE FILM PRODUCTION", len: "45:00", post: "poster16.jpg", round: "5" }
         ];
 
         let currentSelectedRound = null;
@@ -214,7 +238,7 @@
         function init() {
             const track = document.getElementById('slider-track');
             let sliderHTML = '';
-            const version = new Date().getTime(); // ✅ ป้องกัน Cache
+            const version = new Date().getTime(); 
             for(let i=1; i<=16; i++) {
                 sliderHTML += `<div class="slide"><img src="prod${i}.png?v=${version}" onerror="this.src='prod${i}.PNG?v=${version}'"></div>`;
             }
@@ -260,7 +284,7 @@
                     list.innerHTML += `
                         <div onclick="${isFull ? '' : `selectRound(${r.id})`}" class="round-card p-6 flex justify-between items-center ${isFull ? 'opacity-40 cursor-not-allowed' : ''}" style="--status-color: ${color}">
                             <div class="flex-1">
-                                <p class="text-white font-th-title text-xl mb-1">${r.name} <span class="text-[--gold] text-sm ml-2 font-normal italic tracking-wider">${r.time}</span></p>
+                                <p class="text-white font-th-title text-xl mb-1">${r.name} <span class="text-[--gold] text-sm ml-2 font-normal italic">${r.time}</span></p>
                                 <p class="text-[11px] text-gray-400 italic font-light truncate max-w-sm"><span class="text-[--gold] font-bold">Movies:</span> ${moviesInRound.join(", ")}</p>
                             </div>
                             <div class="text-center pl-6 border-l border-white/10">
@@ -305,6 +329,31 @@
             });
         }
 
+        // ✅ ฟังก์ชัน Check Ticket แบบใหม่ (ไม่มี prompt)
+        async function checkTicketNew() {
+            const phone = document.getElementById('check_phone').value;
+            const btn = document.getElementById('check-btn');
+            
+            if(!phone || phone.length !== 10) {
+                alert("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลักครับ");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "กำลังค้นหา...";
+
+            const snap = await db.ref(`bookings/${phone}`).once('value');
+            if(snap.exists()) {
+                closeModal('check-ticket-modal');
+                drawTicket(snap.val());
+            } else {
+                alert("ไม่พบข้อมูลการจองสำหรับเบอร์โทรนี้ครับ");
+            }
+            
+            btn.disabled = false;
+            btn.innerText = "แสดงตั๋วของฉัน";
+        }
+
         function drawTicket(data) {
             const canvas = document.getElementById('ticket-canvas');
             const ctx = canvas.getContext('2d');
@@ -336,13 +385,6 @@
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
         
-        async function checkTicketPrompt() {
-            const phone = prompt("กรอกเบอร์โทร 10 หลัก:");
-            if(phone && phone.length === 10) {
-                const snap = await db.ref(`bookings/${phone}`).once('value');
-                if(snap.exists()) drawTicket(snap.val()); else alert("ไม่พบข้อมูล");
-            }
-        }
         window.onload = init;
     </script>
 </body>
