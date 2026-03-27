@@ -42,7 +42,10 @@
             box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.1); 
         }
         .syn-sidebar { position: relative; }
-        .syn-sidebar::after { content:''; position: absolute; right: 0; top: 10%; bottom: 10%; width: 1px; background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent); }
+        /* ✅ ปรับให้เส้นแบ่งแสดงเฉพาะหน้าจอคอมพิวเตอร์ เพื่อไม่ให้เลอะเทอะในมือถือ */
+        @media (min-width: 768px) {
+            .syn-sidebar::after { content:''; position: absolute; right: 0; top: 10%; bottom: 10%; width: 1px; background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent); }
+        }
         .syn-poster-frame { 
             position: relative;
             border-radius: 20px; 
@@ -135,7 +138,7 @@
         @keyframes pulse-yellow { 0%, 100% { box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.6); } 50% { box-shadow: 0 0 0 8px rgba(251, 146, 60, 0); } }
         @keyframes pulse-red { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.6); } 50% { box-shadow: 0 0 0 8px rgba(255, 77, 77, 0); } }
 
-        /* ปุ่มเซฟตั๋ว (หน้า Your Tickets) */
+        /* ปุ่มเซฟตั๋ว */
         .velvet-bg { background: linear-gradient(180deg, #2a0808 0%, #080808 100%); }
         .ticket-premium-wrap { position: relative; padding: 12px; border-radius: 24px; background: rgba(255,255,255,0.02); border: 1px solid rgba(212,175,55,0.15); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); }
         .ticket-premium-wrap::before { content: ''; position: absolute; inset: -1px; border-radius: 25px; background: linear-gradient(45deg, transparent, rgba(212,175,55,0.4), transparent); z-index: -1; }
@@ -167,10 +170,12 @@
     <main class="max-w-7xl mx-auto px-6 relative z-20"><div id="movie-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div></main>
 
     <div id="synopsis-modal" class="fixed inset-0 z-[99999] hidden flex items-center justify-center p-4 backdrop-blur-md bg-black/80">
-        <div class="synopsis-content w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row overflow-hidden relative shadow-2xl">
-            <button onclick="closeModal('synopsis-modal')" class="absolute top-6 right-8 z-[100] text-white opacity-40 hover:opacity-100 text-2xl transition">✕</button>
-            <div class="syn-sidebar w-full md:w-5/12 p-10 flex flex-col items-center border-r border-white/5 bg-black/20">
-                <div class="syn-poster-frame w-full aspect-[2/3] mb-8 overflow-hidden">
+        <div class="synopsis-content w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row overflow-y-auto md:overflow-hidden relative shadow-2xl custom-scroll">
+            
+            <button onclick="closeModal('synopsis-modal')" class="absolute top-4 right-4 md:top-6 md:right-8 z-[100] text-gray-400 hover:text-[--gold] text-3xl transition duration-300 bg-black/50 md:bg-transparent rounded-full w-10 h-10 flex items-center justify-center md:w-auto md:h-auto">✕</button>
+            
+            <div class="syn-sidebar w-full md:w-5/12 p-8 md:p-10 flex flex-col items-center border-b md:border-b-0 md:border-r border-white/5 bg-black/20">
+                <div class="syn-poster-frame w-2/3 max-w-[240px] md:max-w-none md:w-full aspect-[2/3] mb-6 md:mb-8 overflow-hidden">
                     <img id="md-poster" src="" class="w-full h-full object-cover">
                 </div>
                 <div class="syn-info-stack text-center w-full flex flex-col items-center">
@@ -183,16 +188,19 @@
                             <p id="md-director" class="text-gray-300 text-[11px] font-light"></p>
                         </div>
                     </div>
-                    <div class="text-sm space-y-1 pt-6 border-t border-white/5 w-full mt-6">
+                    <div class="text-sm space-y-1 pt-6 border-t border-white/5 w-full mt-6 mb-4 md:mb-0">
                         <p id="md-len" class="text-gray-500 text-xs font-bold"></p>
                         <p id="md-round" class="text-[--gold] text-sm font-semibold italic"></p>
                     </div>
                 </div>
             </div>
-            <div class="w-full md:w-7/12 p-10 md:p-14 overflow-y-auto custom-scroll flex flex-col bg-black/40">
-                <h3 class="text-white font-th-title text-xl mb-8 border-l-4 border-[--gold] pl-4">Synopsis / เรื่องย่อ</h3>
-                <p id="md-desc" class="text-gray-300 text-base leading-loose font-light whitespace-pre-line italic"></p>
-                <div class="mt-auto pt-12"><button id="book-btn-direct" class="btn-oscar w-full py-4 rounded-full font-black uppercase tracking-widest shadow-xl">จองตั๋วภาพยนตร์รอบนี้</button></div>
+            
+            <div class="w-full md:w-7/12 p-8 md:p-14 overflow-visible md:overflow-y-auto custom-scroll flex flex-col bg-black/40 relative">
+                <h3 class="text-white font-th-title text-xl mb-6 border-l-4 border-[--gold] pl-4">Synopsis / เรื่องย่อ</h3>
+                <p id="md-desc" class="text-gray-300 text-sm md:text-base leading-loose font-light whitespace-pre-line italic mb-8"></p>
+                <div class="mt-auto pt-8 md:pt-12">
+                    <button id="book-btn-direct" class="btn-oscar w-full py-4 rounded-full font-black uppercase tracking-widest shadow-xl">จองตั๋วภาพยนตร์รอบนี้</button>
+                </div>
             </div>
         </div>
     </div>
@@ -290,7 +298,7 @@
         ];
 
         let currentRoundID = null;
-        let currentRoundTime = null; // ✅ ตัวแปรเก็บเวลารอบ
+        let currentRoundTime = null;
 
         function init() {
             const track = document.getElementById('slider-track');
@@ -509,10 +517,10 @@
             if(btn) { btn.disabled = false; btn.innerText="ยืนยันการจองทั้งหมด"; }
         }
 
-        // ✅ [VITAL FIX] เปลี่ยนรูปตั๋วเป็น .png 100% แก้บัคไม่โชว์ภาพ
         function renderTicketOnCanvas(canvas, data) {
             const ctx = canvas.getContext('2d'), img = new Image();
-            img.src = `ticket-${data.round}.png`; 
+            let ext = (data.round == 1 || data.round == 4) ? '.png' : '.jpg';
+            img.src = `ticket-${data.round}${ext}`; 
             
             img.onload = () => {
                 canvas.width = 1200; canvas.height = 492;
@@ -522,15 +530,14 @@
                 ctx.textBaseline = "middle"; 
                 ctx.textAlign = "left"; 
                 
-                // --- พิกัดใหม่: ขยับแกน Y ขึ้นไปให้ตรงกรอบ ---
                 ctx.font = "bold 24px Anuphan"; 
-                ctx.fillText(data.name || "-", 460, 220, 200); 
+                ctx.fillText(data.name || "-", 460, 245, 200); 
                 
                 ctx.font = "bold 24px Anuphan"; 
-                ctx.fillText(data.ticketID || "-", 660, 220); 
+                ctx.fillText(data.ticketID || "-", 660, 245); 
                 
                 ctx.font = "bold 26px Anuphan"; 
-                ctx.fillText(data.phone || "-", 460, 285); 
+                ctx.fillText(data.phone || "-", 460, 320); 
             };
             
             img.onerror = () => {
